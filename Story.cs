@@ -8,6 +8,7 @@ public class Story : MonoBehaviour {
     XmlDocument XDoc = new XmlDocument() ;
     WorldTime WT = new WorldTime();
     List<Chapter> chapters;
+    List<ChapterNode> storyPicturesETC;
 
     public void Start() {
         XDoc.Load( Application.dataPath + @"/Story.xml" );
@@ -54,22 +55,29 @@ public class Story : MonoBehaviour {
         }
     }
 
-    private void StoryForward() {
-        /*
-         * LIst<int> QRecord = GameObject.Find("Gameobject").GetComponent("QuestManager").GetQuestRecord();
-         * int nowDay = WT.CurrentDay ;
-         * bool canPlay = false ;
-         * for ( int i = 0 ; i < chapters.Count ; ++i ) {
-         *     if ( chapters[i].GetDayCondition() == nowDay ) {
-         *         List<int> eventList = chapters[i].GetEventCondition() ;
-         *         for ( int j = 0 ; j < eventList.Count ; ++j ) {
-         *             
-         *         }
-         *     }
-         * }
-         */
+    private void StoryForward() {    
+        List<int> QRecord = GameObject.Find("Gameobject").GetComponent("QuestManager").GetQuestRecord();
+        int nowDay = WT.CurrentDay ;
+        bool canPlay = true ;
+        for ( int i = 0 ; i < chapters.Count ; ++i ) {
+            if ( chapters[i].GetDayCondition() == nowDay ) {
+                List<int> eventList = chapters[i].GetEventCondition() ;
+                for ( int j = 0 ; j < eventList.Count ; ++j ) {
+                    // 比對玩家完成過的Event編號
+                }
+
+                if( canPlay ) {
+                    storyPicturesETC = chapters[i].GetStoryInfo();
+                }
+            }
+        }
+         
 
         
+    }
+
+    public List<ChapterNode> GetStoryPictures() {
+        return storyPicturesETC;
     }
     
 }
